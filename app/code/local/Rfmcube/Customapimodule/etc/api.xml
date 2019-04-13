@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+           
+            <detailedorder translate="title" module="customapimodule">
+                <model>customapimodule/order_api</model>
+                <title>Demo Rfmcube API Order</title>
+                <acl>customapimodule/detailedorder</acl>
+                <methods>
+                    <list translate="title" module="customapimodule">
+                        <title>List of detailed orders</title>
+                        <method>detailedItems</method>
+                    </list>
+                </methods>
+            </detailedorder>
+            <detailedcustomer translate="title" module="customapimodule">
+                <model>customapimodule/customer_api</model>
+                <title>Demo Rfmcube API Customer</title>
+                <acl>customapimodule/detailedcustomer</acl>
+                <methods>
+                    <list translate="title" module="customapimodule">
+                        <title>List of detailed customers</title>
+                        <method>detailedItems</method>
+                    </list>
+                </methods>
+            </detailedcustomer>
+        </resources>
+        <resources_alias>
+            <detailedorder>detailedorder</detailedorder>
+            <detailedcustomer>detailedcustomer</detailedcustomer>
+        </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <detailedorder>detailedorder</detailedorder>
+                <detailedcustomer>detailedcustomer</detailedcustomer>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <customapimodule translate="title" module="customapimodule">
+                    <title>Rfmcube Api Extension</title>
+                   
+                    <detailedorder translate="title" module="customapimodule">
+                        <title>Detailed orders</title>
+                    </detailedorder>
+                    <detailedcustomer translate="title" module="customapimodule">
+                        <title>Detailed customers</title>
+                    </detailedcustomer>
+                </customapimodule>
+            </resources>
+        </acl>
+    </api>
+</config>
