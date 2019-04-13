@@ -12,6 +12,10 @@
                         <title>List of detailed orders</title>
                         <method>detailedItems</method>
                     </list>
+                    <info translate="title" module="customapimodule">
+                        <title>Detailed order</title>
+                        <method>detailedInfo</method>
+                    </info>
                 </methods>
             </detailedorder>
             <detailedcustomer translate="title" module="customapimodule">
@@ -23,6 +27,10 @@
                         <title>List of detailed customers</title>
                         <method>detailedItems</method>
                     </list>
+                    <info translate="title" module="customapimodule">
+                        <title>Detailed customer</title>
+                        <method>detailedInfo</method>
+                    </info>
                 </methods>
             </detailedcustomer>
         </resources>
