@@ -46,23 +46,32 @@ class Rfmcube_Customapimodule_Model_Order_Api extends Mage_Sales_Model_Order_Api
                 );
             }
             //RFMCUBE
-
             $arrayItem = $this->_getAttributes($item, 'order_item');
 
-            //add categories to orderItem
+//            //add categories to orderItem
             $storeid = $order->getStoreId();
             $prodid = $item->getProductId();
             $product = Mage::helper('catalog/product')->getProduct($prodid, $storeid, null);
-            $categories = $product->getCategoryIds();
-            //as array
-            foreach ($categories as $cat) {
-                $arrayItem['category_ids'][] = $cat;
+//
+//            //as array
+            $arrayItem['categories'] = array();
+            foreach ($product->getCategoryIds() as $categoryId) {
+
+                $category = Mage::getModel('catalog/category')->setStoreId($storeid)->load($categoryId);
+
+                $arrayItem['categories'][] = array(
+                    'id' => $category->getId(),
+                    'name' => $category->getName(),
+                    'description' => $category->getDescription(),
+                    'parent_id' => $category->getParentId()
+                );
             }
 
             //as comma separated string
-            $arrayItem['category_ids_as_string'] = implode(",", $categories);
-
+            $arrayItem['category_ids_as_string'] = implode(",", $product->getCategoryIds());
             //RFMCUBE
+
+
             $result['items'][] = $arrayItem;
         }
         $result['payment'] = $this->_getAttributes($order->getPayment(), 'order_payment');
