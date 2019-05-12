@@ -10,13 +10,13 @@ class Rfmcube_Customapimodule_Model_Customer_Api extends Mage_Customer_Model_Cus
      */
     public function detailedItems($filters) {
 
-        Mage::log('detailedItems for customer');
+        // Mage::log('detailedItems for customer');
         $res = array();
 
         $customerCollection = $this->items($filters);
 
         foreach ($customerCollection as $customer) {
-            Mage::log('load customer id ' . $customer['customer_id']);
+            // Mage::log('load customer id ' . $customer['customer_id']);
 //            Mage::log($customerCollection['id']);
             // $orders[] = $this->_getAttributes($order, 'order');
             $res[] = $this->detailedInfo($customer['customer_id']);
