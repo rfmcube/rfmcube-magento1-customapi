@@ -10,13 +10,13 @@ class Rfmcube_Customapimodule_Model_Order_Api extends Mage_Sales_Model_Order_Api
      */
     public function detailedItems($filters) {
 
-        Mage::log('detailedItems for order');
+        // Mage::log('detailedItems for order');
         $res = array();
 
         $orderCollection = $this->items($filters);
 
         foreach ($orderCollection as $order) {
-            Mage::log('load order id ' . $order['increment_id']);
+            // Mage::log('load order id ' . $order['increment_id']);
             $res[] = $this->detailedInfo($order['increment_id']);
         }
         return $res;
@@ -52,19 +52,32 @@ class Rfmcube_Customapimodule_Model_Order_Api extends Mage_Sales_Model_Order_Api
             $storeid = $order->getStoreId();
             $prodid = $item->getProductId();
             $product = Mage::helper('catalog/product')->getProduct($prodid, $storeid, null);
-//
-//            //as array
+
+            $arrayItem['product_attributes']= array();
+            foreach ($product->getAttributes() as $attribute) {
+              if($attribute->getAttributeCode() == 'settore_di_applicazione'){
+                // Mage::log($attribute);
+                $arrayItem['product_attributes'][$attribute->getAttributeCode()] = $product->getData($attribute->getAttributeCode());
+              }
+
+            }
+
+            //as array
             $arrayItem['categories'] = array();
             foreach ($product->getCategoryIds() as $categoryId) {
 
                 $category = Mage::getModel('catalog/category')->setStoreId($storeid)->load($categoryId);
 
+                // Mage::log("parent " . $category->getParentId());
+
                 $arrayItem['categories'][] = array(
                     'id' => $category->getId(),
                     'name' => $category->getName(),
                     'description' => $category->getDescription(),
-                    'parent_id' => $category->getParentId()
+                    'parent_id' => $category->getParentId(),
+                    'tree' => implode(",", $this->categoryTree($storeid,$category))
                 );
+
             }
 
             //as comma separated string
@@ -80,6 +93,36 @@ class Rfmcube_Customapimodule_Model_Order_Api extends Mage_Sales_Model_Order_Api
             $result['status_history'][] = $this->_getAttributes($history, 'order_status_history');
         }
         return $result;
+    }
+
+    /**
+     * Build the category tree of the category as comma separated ids string
+     *
+     * @param string $orderIncrementId
+     * @return array
+     */
+    public function categoryTree($storeid,$category) {
+      $tree = array();
+      // Mage::log( " build category tree " . $category->getId());
+      $this->_walkParent($storeid,$tree,$category);
+      $tree=array_reverse($tree);
+      // Mage::log( " final tree " . implode(",", $tree));
+      return $tree;
+    }
+
+    public function _walkParent($storeid,& $tree,$category){
+      $tree[]=$category->getId();
+      $parentId = $category->getParentId();
+      if(isset($parentId) && $parentId !== 0) {
+        // Mage::log($category->getId() . " has parent " . $parentId);
+        $parentCategory = Mage::getModel('catalog/category')->setStoreId($storeid)->load($parentId);
+
+        // $tree[]=array(
+        //     'id' => $parentCategory->getId(),
+        //     'name' => $parentCategory->getName()
+        // );
+        $this->_walkParent($storeid,$tree,$parentCategory);
+      }
     }
 
 }
