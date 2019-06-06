@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Rfmcube_CustomApi</name>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <stability>stable</stability>
     <license>GPL</license>
     <channel>community</channel>
@@ -22,10 +22,10 @@ customer contains the newsletter field&#xD;
 order contains the categories inside the items&#xD;
 &#xD;
 in the categories there is also a comma separated list of parent ids</notes>
-    <authors><author><name>giacomo baffa</name><user>chiccomask</user><email>tech@rfmcube.com</email></author></authors>
-    <date>2019-05-12</date>
-    <time>21:18:13</time>
+    <authors><author><name>giacomo baffa</name><user>gbaffa</user><email>tech@rfmcube.com</email></author></authors>
+    <date>2019-06-06</date>
+    <time>14:28:03</time>
     <contents><target name="magelocal"><dir name="Rfmcube"><dir name="Customapimodule"><dir name="Helper"><file name="Data.php" hash="13042837da1abfc774525acfa9217ec8"/></dir><dir name="Model"><dir name="Customer"><dir name="Api"><file name="v2.php" hash="7f531b08609dd547c6c0a418a1dd43b2"/></dir><file name="Api.php" hash="443a36090e3c434c28b80ae375d36c97"/></dir><dir name="Order"><dir name="Api"><file name="v2.php" hash="a7616dbdfe177a4896abc96e2c3611a0"/></dir><file name="Api.php" hash="7bcb84606c1e07d83ca07ed1451e4bff"/></dir></dir><dir name="etc"><file name="api.xml" hash="329ef5d6657977992a428f0aabdc8726"/><file name="config.xml" hash="bc17417602186326cb90f972a2c5fa0b"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Rfmcube_All.xml" hash="3b5307df30867246a5db3aeef04815ee"/></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.6.0</min><max>7.2.0</max></php></required></dependencies>
+    <dependencies><required><php><min>5.0.0</min><max>7.2.0</max></php></required></dependencies>
 </package>
