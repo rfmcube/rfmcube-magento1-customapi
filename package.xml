@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Rfmcube_CustomApi</name>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
     <stability>stable</stability>
     <license>GPL</license>
     <channel>community</channel>

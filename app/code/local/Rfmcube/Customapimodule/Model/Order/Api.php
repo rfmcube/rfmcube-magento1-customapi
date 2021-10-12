@@ -53,14 +53,14 @@ class Rfmcube_Customapimodule_Model_Order_Api extends Mage_Sales_Model_Order_Api
             $prodid = $item->getProductId();
             $product = Mage::helper('catalog/product')->getProduct($prodid, $storeid, null);
 
-            $arrayItem['product_attributes']= array();
-            foreach ($product->getAttributes() as $attribute) {
-              if($attribute->getAttributeCode() == 'settore_di_applicazione'){
-                // Mage::log($attribute);
-                $arrayItem['product_attributes'][$attribute->getAttributeCode()] = $product->getData($attribute->getAttributeCode());
-              }
-
-            }
+            //$arrayItem['product_attributes']= array();
+            //foreach ($product->getAttributes() as $attribute) {
+            //  if($attribute->getAttributeCode() == 'settore_di_applicazione'){
+            //    // Mage::log($attribute);
+            //    $arrayItem['product_attributes'][$attribute->getAttributeCode()] = $product->getData($attribute->getAttributeCode());
+            //  }
+            //
+            //}
 
             //as array
             $arrayItem['categories'] = array();
@@ -82,6 +82,8 @@ class Rfmcube_Customapimodule_Model_Order_Api extends Mage_Sales_Model_Order_Api
 
             //as comma separated string
             $arrayItem['category_ids_as_string'] = implode(",", $product->getCategoryIds());
+
+            $arrayItem['product_details'] = $this->productDetails ($product);
             //RFMCUBE
 
 
@@ -123,6 +125,36 @@ class Rfmcube_Customapimodule_Model_Order_Api extends Mage_Sales_Model_Order_Api
         // );
         $this->_walkParent($storeid,$tree,$parentCategory);
       }
+    }
+
+    /**
+     * Retrieve product info
+     *
+     * @param int|string $productId
+     * @param string|int $store
+     * @param array      $attributes
+     * @param string     $identifierType
+     * @return array
+     */
+    public function productDetails($product)
+    {
+        $result = array( // Basic product data
+            'product_id' => $product->getId(),
+            'sku'        => $product->getSku(),
+            'set'        => $product->getAttributeSetId(),
+            'type'       => $product->getTypeId(),
+            'categories' => $product->getCategoryIds(),
+            'websites'   => $product->getWebsiteIds()
+        );
+
+        foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
+            if ($this->_isAllowedAttribute($attribute, $attributes)) {
+                $result[$attribute->getAttributeCode()] = $product->getData(
+                                                                $attribute->getAttributeCode());
+            }
+        }
+
+        return $result;
     }
 
 }
