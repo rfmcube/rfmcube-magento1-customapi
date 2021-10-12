@@ -9,7 +9,7 @@ This module enhance the magento soap api adding more details to orders and custo
 
 ## How to install Rfmcube Custom API for Magento 1
 
-- Download [the latest release here](https://github.com/rfmcube/rfmcube-prestashop-customapi/releases/download/v1.6/rfmcubeapi.zip)
+- Download [the latest release here](https://github.com/rfmcube/rfmcube-magento1-customapi/releases/download/v1.3.0/Rfmcube_CustomApi-1.3.0.tgz)
 - Go to System/Magento Connector/Magento Connect Manager/Direct package file upload
 - Upload the tgz file and install it
 
