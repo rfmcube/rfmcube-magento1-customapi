@@ -1,4 +1,8 @@
 # rfmcube-magento1-customapi
+
+> **⚠️ This module is no longer required.**
+> Rfmcube now connects to your store without this extension: you don't need to install it on your store. This repository is kept for reference only and is no longer maintained.
+
 Rfmcube extension of the magento 1.x.x soap api
 
 This module enhance the magento soap api adding more details to orders and customers and managing the subscription to the newsletter
